@@ -1,12 +1,18 @@
-"use client"
-import { postDataType } from "@/app/types/types";
-import { Card, CardTitle, CardDescription, CardHeader, CardContent } from "@/components/ui/card";
+"use client";
+import type { postDataType } from "@/app/types/types";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 
 interface postDataProps {
-	postItem: postDataType
+	postItem: postDataType;
 }
 
-export const Post = ({postItem}: postDataProps) => {
+export const Post = ({ postItem }: postDataProps) => {
 	const { id, user_id, content, created_at, updated_at } = postItem;
 	return (
 		<Card className="w-full max-w-sm">
@@ -19,7 +25,6 @@ export const Post = ({postItem}: postDataProps) => {
 					<p>{content}</p>
 				</div>
 			</CardContent>
-
 		</Card>
-	)
-}
+	);
+};

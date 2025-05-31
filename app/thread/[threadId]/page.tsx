@@ -1,22 +1,24 @@
-import React from 'react'
-import { threadDataType } from '@/app/types/types'
-import { PostList } from '@/components/PostList'
-import { getPost } from '@/app/actions/actions'
-import Link from 'next/link'
+import { getPost } from "@/app/actions/actions";
+import type { threadDataType } from "@/app/types/types";
+import { PostList } from "@/components/PostList";
+import Link from "next/link";
+import React from "react";
 
-
-async function getDetailThread(threadId: number){
-	const response = await fetch(`http://localhost:3000/thread/${threadId}`,{
+async function getDetailThread(threadId: number) {
+	const response = await fetch(`http://localhost:3000/thread/${threadId}`, {
 		cache: "no-store",
 	});
 	const threadDetailData: threadDataType = await response.json();
 	return threadDetailData;
 }
 
-const threadDetailPage = async({ params }: { params: { threadId: number } }) => {
+const threadDetailPage = async ({
+	params,
+}: { params: { threadId: number } }) => {
 	const parameter = await params;
 	const threadDetailData = await getDetailThread(parameter.threadId);
-	const { title, category_id, created_at, updated_at, user_id } = threadDetailData;
+	const { title, category_id, created_at, updated_at, user_id } =
+		threadDetailData;
 	const postData = await getPost(parameter.threadId);
 	// const postData = await getPostData(parameter.threadId);
 	return (
@@ -28,7 +30,7 @@ const threadDetailPage = async({ params }: { params: { threadId: number } }) => 
 				<p className="text-sm text-gray-500">{`更新日: ${updated_at}`}</p>
 				<p className="text-sm text-gray-500">{`ユーザー: ${user_id}`}</p>
 			</div>
-			<PostList postData={postData}/>
+			<PostList postData={postData} />
 			<div>
 				<Link
 					className="bg-black text-xl mx-2 py-2 px-4 text-white rounded-md font-medium"
@@ -36,12 +38,15 @@ const threadDetailPage = async({ params }: { params: { threadId: number } }) => 
 				>
 					Create Post
 				</Link>
-				<Link href={"/"} className="bg-blue-500 mx-2 text-white text-xl font-bold px-4 py-2 rounded-md">Home</Link>
-			</div>
-			<div className="mb-8">
+				<Link
+					href={"/"}
+					className="bg-blue-500 mx-2 text-white text-xl font-bold px-4 py-2 rounded-md"
+				>
+					Home
+				</Link>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default threadDetailPage
+export default threadDetailPage;
