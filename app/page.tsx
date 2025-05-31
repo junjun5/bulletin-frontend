@@ -1,19 +1,9 @@
 import Image from "next/image";
 import BulletinCardList from "@/components/BulletinCardList";
-import BulletinCard from "@/components/BulletinCard";
-import { threadDataType } from "./types/types";
-
-async function getThreadData(){
-	const response = await fetch("http://localhost:3000/thread",{
-		cache: "no-store",
-	});
-	const threadsData: threadDataType[] = await response.json();
-	return threadsData;
-}
+import { getThreadData } from "@/app/actions/actions";
 
 export default async function Home() {
 	const threadData = await getThreadData()
-	console.log(threadData)
 
   return (
 		<div>
