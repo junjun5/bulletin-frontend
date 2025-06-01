@@ -34,3 +34,19 @@ export async function getPost(threadId: number) {
 	const postData: postDataType[] = await response.json();
 	return postData;
 }
+
+export async function getPostLike(postId: number) {
+	try {
+		const response = await fetch(
+			`http://localhost:3000/post/${postId}/like`,
+			{
+				cache: "no-store"
+			}
+		);
+		const postLikeData = await response.json();
+		console.log(postLikeData);
+		return postLikeData.length;
+	} catch (error) {
+		console.error("Error fetching posts:", error);
+	}
+}
